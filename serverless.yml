@@ -1,0 +1,47 @@
+service: todo-restapi
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-1
+
+functions:
+  create:
+    handler: handler.create
+    events:
+      - http:
+          path: todo
+          method: post
+          cors: true
+  getOne:
+    handler: handler.getOne
+    events:
+      - http:
+          path: todo/{id}
+          method: get
+          cors: true
+  getAll:
+    handler: handler.getAll
+    events:
+     - http:
+         path: todo
+         method: get
+         cors: true
+  update:
+    handler: handler.update
+    events:
+     - http:
+         path: todo/{id}
+         method: put
+         cors: true
+  delete:
+    handler: handler.delete
+    events:
+     - http:
+         path: todo/{id}
+         method: delete
+         cors: true
+
+plugins:
+- serverless-offline
